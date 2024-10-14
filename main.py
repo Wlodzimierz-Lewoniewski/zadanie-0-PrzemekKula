@@ -1,27 +1,19 @@
+def main():
+    num_documents = int(input().strip())
+    documents = []
+    for _ in range(num_documents):
+        documents.append(input().strip())
 
-documents = []
+    num_keywords = int(input().strip())
+    keywords = []
+    for _ in range(num_keywords):
+        keywords.append(input().strip())
 
-num_of_docs = int(input("Ile dokumentów chcesz wprowadzić? "))
+    for keyword in keywords:
+        keyword_count = [(index, doc.lower().count(keyword.lower())) for index, doc in enumerate(documents)]
+        sorted_documents = sorted(keyword_count, key=lambda x: (-x[1], x[0]))
+        sorted_indices = [index for index, _ in sorted_documents]
+        print(sorted_indices)
 
-for i in range(num_of_docs):
-    document = input(f"Podaj treść dokumentu {i}: ")
-    documents.append(document)
-
-search_word = input("Podaj słowo, którego wystąpienia chcesz policzyć: ").lower()
-
-document_word_count = []
-
-for index, doc in enumerate(documents):
-    
-    words = doc.lower().split()
-    
-    word_count = words.count(search_word)
-    
-    document_word_count.append((index, word_count))
-
-sorted_documents = sorted(document_word_count, key=lambda x: x[1], reverse=True)
-
-print('\nTen wyraz został wprowadzony: ', search_word)
-print("\nDokumenty uszeregowane według liczby wystąpień słowa:")
-sorted_document_numbers = [doc[0] for doc in sorted_documents]
-print(sorted_document_numbers)
+if __name__ == "__main__":
+    main()
